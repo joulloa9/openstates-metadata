@@ -52,7 +52,10 @@ def test_everything_has_division_id():
         else:
             for d in state.lower.districts:
                 assert d.num_seats
-                assert d.division_id.startswith("{state.division_id}/sldl:")
+                assert d.division_id.startswith(f"{state.division_id}/sldl:")
             for d in state.upper.districts:
                 assert d.num_seats
-                assert d.division_id.startswith("{state.division_id}/sldu:")
+                if d.name == "At-Large":
+                    assert d.division_id == state.division_id
+                else:
+                    assert d.division_id.startswith(f"{state.division_id}/sldu:")
